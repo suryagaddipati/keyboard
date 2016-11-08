@@ -15,7 +15,7 @@ class Music extends React.Component {
     window.removeEventListener('keyup', this.handleRelease);
   }
   handlePress(ev) {
-    var keys = ['a','b','c','d','e','f'];
+    var keys = ['a','b','c','d','e','f','g'];
     if( keys.indexOf(ev.key) < 0 ) return;
     var synth = new Tone.Synth().toMaster();
     synth.triggerAttackRelease(ev.key+"4", "8n");
