@@ -5,6 +5,8 @@ class Music extends React.Component {
     super(props)
     this.handlePress = this.handlePress.bind(this);
     this.handleRelease = this.handleRelease.bind(this);
+    this.synth = new Tone.Synth().toMaster();
+    this.allowed = true
   }
   componentDidMount() {
     window.addEventListener('keydown', this.handlePress);
@@ -15,12 +17,21 @@ class Music extends React.Component {
     window.removeEventListener('keyup', this.handleRelease);
   }
   handlePress(ev) {
+    if (ev.repeat != undefined) {
+      this.allowed = !ev.repeat;
+    }
+    if (!this.allowed) return;
+    this.allowed = false;
+
+
     var keys = ['a','b','c','d','e','f','g'];
     if( keys.indexOf(ev.key) < 0 ) return;
-    var synth = new Tone.Synth().toMaster();
-    synth.triggerAttackRelease(ev.key+"4", "8n");
+    this.synth.triggerAttack(ev.key+"4");
   }
   handleRelease(ev) {
+    this.allowed = true;
+    this.synth.triggerRelease();
+
   }
   render(){
     return <h1>type</h1>
