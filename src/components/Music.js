@@ -1,5 +1,6 @@
 import React from 'react';
 import Tone from 'tone';
+var keypress = require( 'keypress.js')
 class Music extends React.Component {
   constructor(props) {
     super(props)
@@ -9,8 +10,15 @@ class Music extends React.Component {
     this.allowed = true
   }
   componentDidMount() {
+    var listener = new keypress.keypress.Listener();
+    listener.simple_combo("shift s", this.tabSpace);
+
+
     window.addEventListener('keydown', this.handlePress);
     window.addEventListener('keyup', this.handleRelease);
+  }
+  tabSpace(){
+    console.log("meow")
   }
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handlePress);
